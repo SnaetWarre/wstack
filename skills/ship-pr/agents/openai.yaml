@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship PR"
+  short_description: "Finish and verify a reviewable pull request"
+  default_prompt: "Use $ship-pr to finish this change and open or update its PR."
