@@ -5,7 +5,7 @@ description: Finish an authorized code change as a reviewable pull request. Use 
 
 # Ship PR
 
-If the repo has its own ship skill (a `ship-*-pr` folder in its `.claude/skills/`, such as `ship-apolloon-pr`), use that instead. This skill is the general version for repos without one, and the starting point when you write one for a new repo.
+If the repo has its own ship skill (a `ship-*-pr` folder in its `.claude/skills/`, such as `ship-myapp-pr`), use that instead. This skill is the general version for repos without one, and the starting point when you write one for a new repo.
 
 Carry the requested change through a reviewable PR using the current checkout and one agent. Follow repository instructions. Use an ordinary Git branch, never a worktree. Preserve unrelated changes and stage only files belonging to the task.
 
@@ -40,7 +40,7 @@ Keep capture files and raw measurements in one unique temporary directory outsid
 
 For a material UI change, capture matching base and head states: same route, data, viewport, scroll position, and relevant interaction. Include the changed surfaces and a narrow viewport when responsive behavior changed. Avoid stealing focus during GUI capture. Put before and after images together in the PR body, state the scenario, and verify they render for reviewers. If direct attachment is unavailable, explain that limitation in the PR instead of committing screenshots as a workaround.
 
-Mark what changed, so the reader does not have to compare two screenshots pixel by pixel. Draw a numbered red ring around each changed part, on base and head alike: the new or moved control, the fixed text, the spot where something wrong used to appear. In a Playwright capture, add the rings as a top-layer popover over each element's `boundingBox()`, screenshot, then remove them; `markScreenshot` in `~/Documents/apolloon/.claude/skills/verify-apolloon/scripts/drive.mjs` does exactly this and can be copied. Two or three rings at most. Open each marked image and check the rings sit on the change. Under the table, write one short line per number.
+Mark what changed, so the reader does not have to compare two screenshots pixel by pixel. Draw a numbered red ring around each changed part, on base and head alike: the new or moved control, the fixed text, the spot where something wrong used to appear. In a Playwright capture, add the rings as a top-layer popover over each element's `boundingBox()`, screenshot, then remove them. Two or three rings at most. Open each marked image and check the rings sit on the change. Under the table, write one short line per number.
 
 For a performance claim, measure base and head on the same machine with the same build mode, data, workload, warm-up, and sample count. Choose a metric that matches the claim. Report units, base, head, delta, and run-to-run spread; for short benchmarks prefer at least five measured repetitions. Treat differences within noise as inconclusive, and include the command, environment, revisions, and correctness checks. Never turn a single run, estimate, or unmatched workload into a measured improvement claim.
 

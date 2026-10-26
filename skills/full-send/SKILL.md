@@ -9,7 +9,7 @@ The user said "full send" because they are not watching this thread. They read y
 
 ## Pick the ship skill
 
-1. If the repo has its own ship skill, use it. Look in the repo's `.claude/skills/` for a folder named `ship-*-pr` (for example `ship-apolloon-pr`), or a skill whose description says to use it instead of `ship-pr`. Read its `SKILL.md` and follow it from start to merge.
+1. If the repo has its own ship skill, use it. Look in the repo's `.claude/skills/` for a folder named `ship-*-pr` (for example `ship-myapp-pr`), or a skill whose description says to use it instead of `ship-pr`. Read its `SKILL.md` and follow it from start to merge.
 2. Otherwise, use `ship-pr` (`~/.claude/skills/ship-pr/SKILL.md`).
 
 Run it in its "full send" mode. If the chosen skill has no such mode, follow the "Full send and full stop" section of `ship-pr` on top of it.

@@ -42,7 +42,7 @@ Rules to put in every thread prompt (the thread runs in a different worktree pat
 - No attribution in commits or PRs. Dutch user-facing text. No left accent borders.
 - Headless GUI only; `unset ELECTRON_RUN_AS_NODE` before launching Electron; no `pkill -f`.
 - Call `link_pull_request` after creating the PR.
-- Merge only after every required check passes and `mergeStateStatus` is `CLEAN` (in Apolloon that is the "All checks" job), using `gh pr merge --squash --delete-branch`. On conflicts, rebase on origin/main, re-run the checks, and wait for CI again.
+- Merge only after every required check passes and `mergeStateStatus` is `CLEAN`, using `gh pr merge --squash --delete-branch`. On conflicts, rebase on origin/main, re-run the checks, and wait for CI again.
 
 When two fixes touch the same file, say so in both prompts so each keeps its diff focused.
 
