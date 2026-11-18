@@ -32,6 +32,7 @@ The comment starts here.
 - Use the model name your harness reports, and the user's name or GitHub login. If the harness gives no model name, name the harness. Never guess.
 - The note holds only that line. The reply goes below it, outside the note.
 - Say it once. No second attribution, signature, footer, heading, or horizontal rule anywhere else in the comment.
+- A review with inline comments counts as one comment. Put the note only in the review summary at the top, never in the inline comments under it.
 - This is only for comments. Commits and PR descriptions stay without any Claude attribution, and so does text the user asked you to post word for word.
 
 ## Posting
