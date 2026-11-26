@@ -1,8 +1,8 @@
 # wstack
 
-The agent skills I use every day. They work in Claude Code and Codex. Some use
-[T3 Code](https://github.com/pingdotgg/t3code) features when they are available
-and fall back to native tools when they are not.
+The agent skills I use every day. They work in Claude Code, Codex, and Devin.
+Some use [T3 Code](https://github.com/pingdotgg/t3code) features when they are
+available and fall back to native tools when they are not.
 
 ## Skills
 
@@ -11,6 +11,7 @@ and fall back to native tools when they are not.
 | Skill | Say | What it does |
 |---|---|---|
 | `ship-pr` | "make a PR" | Turns a finished change into a PR with proof (screenshots, timings) and waits for CI. A repo's own `ship-*-pr` skill wins over this one. |
+| `independent-review` | (automatic) | Gives `ship-pr` a read-only second review when the host has no review command. |
 | `full-send` | "full send" | Takes a change to a merged PR while nobody watches the thread. |
 | `full-stop` | "full stop" | Same as `full-send`, but stops at a green PR so you merge it yourself. |
 | `takeover` | "take over" | Finishes someone else's PR, branch, or agent thread and keeps their credit. |
@@ -47,7 +48,7 @@ and fall back to native tools when they are not.
 | Skill | Say | What it does |
 |---|---|---|
 | `unslop` | (automatic), `/unslop` | Rules that strip AI patterns from anything a person reads. |
-| `humanizer` | "humanize this" | Rewrites AI-sounding text so it reads like a person wrote it. |
+| `humanizer` | `/humanizer` | Rewrites AI-sounding text so it reads like a person wrote it. |
 | `bro` | `/bro` | Restates the last answer in plain words. |
 
 "(automatic)" means the agent loads the skill on its own when the task fits.
@@ -56,16 +57,52 @@ Skills shown as `/name` only run when you type them.
 Some skills call others, so install them together:
 
 - `full-send`, `bug-hunt`, `modernize`, and `takeover` use `ship-pr`.
+- `ship-pr` uses `independent-review` when the host has no review command.
 - `full-stop` uses `full-send`.
 - `takeover` and `modernize` use `leaving-pr-comments`.
 - `teach` uses `how` and `why`.
 
 ## Install
 
+The repo ships plugin manifests for Claude Code, Codex, Devin, and the open
+Agent Plugins format. Claude Code and Devin expose plugin skills as
+`/wstack:ship-pr`. Use the symlink install when you want the bare names in the
+table above.
+
+### Devin
+
+```bash
+devin plugins install SnaetWarre/wstack
+```
+
+For a live local checkout:
+
 ```bash
 git clone https://github.com/SnaetWarre/wstack ~/wstack
-~/wstack/install.sh                    # Claude Code
-~/wstack/install.sh ~/.codex/skills    # Codex
+devin plugins install --local ~/wstack
+```
+
+### Claude Code
+
+```text
+/plugin marketplace add SnaetWarre/wstack
+/plugin install wstack@wstack
+```
+
+### Codex
+
+```bash
+codex plugin marketplace add SnaetWarre/wstack
+codex plugin add wstack@wstack
+```
+
+### Symlink install
+
+```bash
+git clone https://github.com/SnaetWarre/wstack ~/wstack
+~/wstack/install.sh                     # Claude Code
+~/wstack/install.sh ~/.agents/skills    # Codex and open agent skills
+~/wstack/install.sh ~/.config/devin/skills  # Devin, if not using the plugin
 ```
 
 `install.sh` links each skill folder into the target folder. It skips any skill
@@ -87,7 +124,8 @@ cp -R ~/wstack/skills/* ~/.claude/skills/
 
 - `takeover`, `modernize`, and `leaving-pr-comments` are adapted from
   [t3dotgg/tstack](https://github.com/t3dotgg/tstack) (MIT). `full-send` and
-  `full-stop` follow the same idea.
+  `full-stop` follow the same idea. `skills/ship-pr/scripts/pr-wait` is copied
+  from tstack; its license is in `skills/ship-pr/scripts/pr-wait.LICENSE`.
 - `deletion-principles` combines three principles from pstack.
 - `humanizer` is [blader/humanizer](https://github.com/blader/humanizer) by
   Siqi Chen (MIT, see `skills/humanizer/LICENSE`).

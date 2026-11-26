@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "wstack",
+  "version": "0.1.0",
+  "description": "Agent skills for shipping, reviewing, understanding, and writing about code.",
+  "author": {
+    "name": "Warre Snaet",
+    "url": "https://github.com/SnaetWarre"
+  },
+  "homepage": "https://github.com/SnaetWarre/wstack",
+  "repository": "https://github.com/SnaetWarre/wstack",
+  "license": "MIT",
+  "keywords": ["agent-skills", "code-review", "pull-request", "writing", "css"]
+}

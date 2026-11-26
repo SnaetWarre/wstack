@@ -5,7 +5,7 @@ description: Finish an authorized code change as a reviewable pull request. Use 
 
 # Ship PR
 
-If the repo has its own ship skill (a `ship-*-pr` folder in its `.claude/skills/`, such as `ship-myapp-pr`), use that instead. This skill is the general version for repos without one, and the starting point when you write one for a new repo.
+If the repo has its own ship skill (a `ship-*-pr` folder in one of its skill directories, such as `ship-myapp-pr`), use that instead. This skill is the general version for repos without one, and the starting point when you write one for a new repo.
 
 Carry the requested change through a reviewable PR using the current checkout and one agent. Follow repository instructions. Use an ordinary Git branch, never a worktree. Preserve unrelated changes and stage only files belonging to the task.
 
@@ -20,7 +20,7 @@ When this skill runs from `full-send` or `full-stop`, nobody watches the thread.
 In both modes:
 
 - Stay on it until the end state: merged, ready (full stop), or blocked. Ending a turn with a PR watch running counts as waiting; ending it without one stops the work, because nobody prompts you again.
-- Ask only when you cannot go on alone: you cannot prove the change, a check fails for a reason outside the task, the next step touches anything outside the repo (production, a release, someone else's branch, deleting data), the request has two readings that give different results, or another PR makes this one pointless. Ask with the `AskUserQuestion` tool, not in a message, and put everything in the question: the PR link, what blocks you, and the options with your pick first. If the tool is missing or comes back without an answer, leave the PR open and unmerged and start your final message with the question.
+- Ask only when you cannot go on alone: you cannot prove the change, a check fails for a reason outside the task, the next step touches anything outside the repo (production, a release, someone else's branch, deleting data), the request has two readings that give different results, or another PR makes this one pointless. Ask with the host's question tool (`AskUserQuestion`, `request_user_input`, or equivalent), not in a message, and put everything in the question: the PR link, what blocks you, and the options with your pick first. If the tool is missing or comes back without an answer, leave the PR open and unmerged and start your final message with the question.
 - Decide everything else yourself and list each decision in the final report.
 
 ## Prepare
@@ -30,9 +30,9 @@ In both modes:
 - Make the smallest change that does the job. Fix the case that happened, not every case that could. Reviews and failing checks tend to grow a PR one cheap-looking fix at a time; fix real bugs in the intended case, and list the rest (extra guards, extra tests, edge cases nobody hits) as follow-ups with one line each.
 - Finish the authorized implementation and run checks that exercise the result people will use. Record exact commands and outcomes; distinguish local checks, CI, and deployment.
 - Review the final diff for scope, secrets, generated noise, and `git diff --check`. Make a focused commit.
-- Get a second read before you open the PR: run the `code-review` skill at `high` on the whole branch against the base (`/code-review high origin/<base>...HEAD`), not only the newest commit. Check each finding against the code yourself. Fix the real ones, run the checks again, and review again until a round finds nothing worth fixing (at most three rounds). For each finding you leave, write one line in the PR on why.
+- Get a second read before you open the PR. Review the whole branch against the base, not only the newest commit. Prefer a fresh reviewer over reviewing your own work: use the host's review command or review subagent when it has one (`/code-review high origin/<base>...HEAD` in Claude Code, `codex review --base origin/<base>` in Codex). Otherwise use the `independent-review` skill. Check each finding against the code yourself. Fix the real ones, run the checks again, and review again until a round finds nothing worth fixing (at most three rounds). For each finding you leave, write one line in the PR on why.
 - Push the task branch when creating or updating the PR is authorized.
-- No `Co-Authored-By` trailer for Claude and no "Generated with" line anywhere.
+- Follow the current host's required commit and PR attribution rules. When attribution is optional, omit it.
 
 ## Evidence when the change needs it
 
@@ -52,7 +52,7 @@ Create or update the PR with `gh` or the available native GitHub action. On GitH
 
 ## CI and reviews
 
-Wait without a loop of your own. In T3 Code, call `watch_pull_request` and end your turn; it wakes you when a check fails, the checks pass, someone comments, or the branch conflicts. A wake does not mean the PR is green; check the required checks and `gh pr view <n> --json mergeStateStatus` yourself. Call `unwatch_pull_request` before you stop for any reason other than a merge. Outside T3 Code, use the Monitor tool on `gh pr checks <n> --watch`. Some repos add required checks late, after others finish; know which check is the real gate before you call the PR green. When a wake needs no action, end the turn without a message; never write "still waiting".
+Wait without a loop of your own. In T3 Code, call `watch_pull_request` and end your turn; it wakes you when a check fails, the checks pass, someone comments, or the branch conflicts. A wake does not mean the PR is green; check the required checks and `gh pr view <n> --json mergeStateStatus` yourself. Call `unwatch_pull_request` before you stop for any reason other than a merge. Outside T3 Code, run the absolute path of `scripts/pr-wait` from this skill's directory. Use `--until ready` when the repo uses Greptile or Macroscope, otherwise use `--until green`. Run it under the host's monitor or background mechanism so each event wakes you. It reports checks, review comments, unresolved threads, merge state, and relevant base-branch movement. Restart it after you push, after you handle an exit 1, and after a resume. When the repository has no CI checks, do not wait for `pr-wait` to turn green; use local proof plus the merge-state checks below. Some repos add required checks late, after others finish; know which check is the real gate before you call the PR green. When a wake needs no action, end the turn without a message; never write "still waiting".
 
 If a check fails, read its log (`gh run view --log-failed`), fix failures within the task, push, and check again. Tell repository failures apart from infrastructure flakes. Only act on checks and comments newer than the latest push. Check every review comment, human or bot, against the code before changing anything. Fix real findings; reply to the rest with a written reason, using the `leaving-pr-comments` skill for every comment you post.
 

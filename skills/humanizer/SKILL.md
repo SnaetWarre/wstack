@@ -2,12 +2,15 @@
 name: humanizer
 description: |
   Rewrite AI-sounding text so it reads naturally without changing what it says.
-  Use when editing or reviewing prose for inflated claims,
+  Use only when explicitly invoked to rewrite prose for inflated claims,
   sales language, vague sources, repetitive structure, stock AI words, passive
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
+disable-model-invocation: true
+triggers:
+  - user
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.11.3"
 ---
 
 # Humanizer: remove AI writing patterns
