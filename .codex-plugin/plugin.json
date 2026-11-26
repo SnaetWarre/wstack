@@ -1,0 +1,10 @@
+{
+  "name": "wstack",
+  "version": "0.1.0",
+  "description": "Agent skills for shipping, reviewing, understanding, and writing about code.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "wstack",
+    "shortDescription": "Skills for shipping, review, understanding, and writing"
+  }
+}

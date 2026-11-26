@@ -2,6 +2,8 @@
 name: bug-hunt
 description: Hunt for major, verified bugs across the whole codebase, then fix each one in its own T3 thread, ship it as a PR with ship-pr, and merge when CI is green. Run by hand once in a while to catch regressions.
 disable-model-invocation: true
+triggers:
+  - user
 argument-hint: "[minimum number of bugs, default 7] [optional focus area]"
 ---
 
@@ -39,7 +41,7 @@ Rules to put in every thread prompt (the thread runs in a different worktree pat
 - It is already in its own worktree; don't create another one.
 - Invoke the `ship-pr` skill to ship the PR, using the repo PR template.
 - Lint and format with oxlint/oxfmt (`npm run lint`, `npm run format`), never ESLint/Prettier. Run `npm test` and `npm run check`, plus `npm run test:e2e` for critical flows.
-- No attribution in commits or PRs. Dutch user-facing text. No left accent borders.
+- Follow the host's required attribution rules in commits and PRs. Dutch user-facing text. No left accent borders.
 - Headless GUI only; `unset ELECTRON_RUN_AS_NODE` before launching Electron; no `pkill -f`.
 - Call `link_pull_request` after creating the PR.
 - Merge only after every required check passes and `mergeStateStatus` is `CLEAN`, using `gh pr merge --squash --delete-branch`. On conflicts, rebase on origin/main, re-run the checks, and wait for CI again.

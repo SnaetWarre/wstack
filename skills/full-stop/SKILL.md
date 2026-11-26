@@ -5,7 +5,7 @@ description: Same as full send, but stop at a green PR and let the user merge it
 
 # Full stop
 
-Read `full-send` (`~/.claude/skills/full-send/SKILL.md`). Pick the ship skill the same way and do all the work, with the same permissions for testing and for force-pushing this task's branch. Run the ship skill in its "full stop" mode. These rules win over anything that says to merge:
+Use `full-send`. Pick the ship skill the same way and do all the work, with the same permissions for testing and for force-pushing this task's branch. Run the ship skill in its "full stop" mode. These rules win over anything that says to merge:
 
 - Never merge. Never turn on auto-merge, never push to the base branch, and never ask another agent to merge. If auto-merge is already on, turn it off and say so in the report.
 - Stop when the PR passes every merge check of the ship skill. Leave it open and ready.

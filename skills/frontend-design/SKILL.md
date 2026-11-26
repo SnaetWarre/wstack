@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Use whenever the user asks to design, redesign, mock up, sketch, or "cook up" a screen, page, or component. Covers showing the design in the T3 Code UI for approval before any code change or PR, plus aesthetic direction, typography, and making choices that don't read as templated defaults.
+description: Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Use whenever the user asks to design, redesign, mock up, sketch, or "cook up" a screen, page, or component. Covers showing the design in the available preview UI for approval before any code change or PR, plus aesthetic direction, typography, and making choices that don't read as templated defaults.
 license: Complete terms in LICENSE.txt
 ---
 
@@ -13,7 +13,7 @@ Approach this as the design lead at a design studio known for giving every clien
 When the user asks you to design or cook up something, the first deliverable is a mockup they can see, not a code change.
 
 1. Build the design as one self-contained HTML page. Use the project's real colors, fonts, and data so it looks like the actual app.
-2. Check it with `html_preview` from the `t3-code` MCP server, fix what looks wrong, then publish it with `html_render` so it shows up in the T3 Code thread. Load both tools with ToolSearch if they are deferred. Keep the HTML file outside the repo, for example in `~/.cache/<project>-design/`.
+2. Show it with the first available preview path. In T3 Code, check it with `html_preview`, fix what looks wrong, then publish it with `html_render`; load both tools with ToolSearch if they are deferred. In Devin, serve the mockup directory with `python3 -m http.server` in the background, open it with `browser_preview`, and stop that server after the preview is done. In another host, use its browser or screenshot preview tool. If no visual preview exists, keep the HTML outside the repo and give the user its path. Never put the mockup in the repo just to preview it.
 3. In your reply, say in a few sentences what changed and why, then ask whether they want it built or changed.
 4. Stop there. Don't edit the project's code, create a branch, commit, push, or open a PR until the user approves this design. If they ask for changes, update the mockup and show it again.
 

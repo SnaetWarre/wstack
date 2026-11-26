@@ -16,18 +16,12 @@ When you paste text, Humanizer shows its work before giving you the final versio
 
 ## Usage
 
-Call the skill directly:
+Invoke the skill explicitly with `/humanizer`, `$humanizer`, or your host's skill picker:
 
 ```
 /humanizer
 
 [paste your text here]
-```
-
-Or ask in plain language:
-
-```
-Please humanize this text: [your text]
 ```
 
 To rewrite a file, give Humanizer its path:
@@ -154,6 +148,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.11.3** - Made the skill explicit-only in Claude Code, Codex, and Devin. It runs when invoked as `/humanizer`, `$humanizer`, or through the host's skill picker. No change to the 35 patterns.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.
@@ -206,4 +201,4 @@ The plugin command is `/humanizer:humanizer`.
 
 In Claude Desktop, download this repository as a ZIP and upload it as a skill.
 
-For a manual install, copy `SKILL.md` into the agent's skill folder.
+For a manual install, copy the whole skill folder, including `SKILL.md` and `agents/openai.yaml`, into the agent's skill folder.

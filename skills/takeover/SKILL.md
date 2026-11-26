@@ -25,13 +25,13 @@ Read the source PR, branch, or thread in full, including review findings and lat
 - Keep Git authorship and existing `Co-authored-by` trailers for people.
 - Name the original contributors in the PR description and link the original PR.
 - If the work will be squash-merged, keep human authors as `Co-authored-by` trailers in the merge commit, with identities you checked (from their commits or GitHub profile), never a guessed e-mail.
-- The user's rule against Claude attribution still holds: credit people, never the model.
+- Follow the current host's required attribution rules. Always keep human credit; never replace it with model credit.
 
 ## Prove and ship
 
 Check the original problem yourself, the way a user meets it, following the repo's guidance. Green mocked tests do not prove that a screen works. Say what you could not check.
 
-When the finish includes a PR, use the repo's ship skill (`ship-*-pr` in its `.claude/skills/`, or else `ship-pr`) to open or update it and see it through CI. Use `leaving-pr-comments` for replies. Merge or close the original PR only with permission.
+When the finish includes a PR, use the repo's ship skill (`ship-*-pr` in its project skill directories, or else `ship-pr`) to open or update it and see it through CI. Use `leaving-pr-comments` for replies. Merge or close the original PR only with permission.
 
 ## Report
 
